@@ -49,8 +49,8 @@ public class Database {
                         + "pWarranty INT(2) NOT NULL,"
                         + "pAvailableQuantity INT(2) NOT NULL,"
                         + "PRIMARY KEY (pID),"
-                        + "FOREIGN KEY (pManufacturerID) REFERENCES manufacturer(mID),"
-                        + "FOREIGN KEY (pCategoryID) REFERENCES category(cID)"
+                        + "FOREIGN KEY (mID) REFERENCES manufacturer(mID),"
+                        + "FOREIGN KEY (cID) REFERENCES category(cID)"
                         + ");"),
                 conn.prepareStatement("CREATE TABLE salesperson ("
                         + "sID INT(2) NOT NULL,"
@@ -66,8 +66,8 @@ public class Database {
                         + "salespersonID INT(2) NOT NULL,"
                         + "tDate DATE NOT NULL,"
                         + "PRIMARY KEY (tID),"
-                        + "FOREIGN KEY (partID) REFERENCES part(pID),"
-                        + "FOREIGN KEY (salespersonID) REFERENCES salesperson(sID)"
+                        + "FOREIGN KEY (pID) REFERENCES part(pID),"
+                        + "FOREIGN KEY (sID) REFERENCES salesperson(sID)"
                         + ");")
         };
         for (int i = 0; i < stmts.length; i++) {
