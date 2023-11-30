@@ -416,7 +416,7 @@ public class Database {
         System.out.println("| ID | Name | Years of Experience | Number of Transaction |");
         try {
             PreparedStatement stmt = conn.prepareStatement("select T.tID, S.aName, S.sExperience, count(T.tID) as NumberOfTransactions\n" +
-                    "from transaction T, Salesperson S " +
+                    "from transaction T, salesperson S " +
                     "where T.sId = S.sID and s.Experience between "+ lower +" and " + higher +
                     " group by T.tID, S.aName, S.sExperience " +
                     " order by S.sID DESC;");
@@ -445,7 +445,7 @@ public class Database {
         System.out.println("| Manufacturer ID | Manufacturer Name | Total Sales Value");
         try {
             PreparedStatement stmt = conn.prepareStatement("select M.mID, M.mName, sum(P.pPrice) as totalSales " +
-                    "from Manufacturer M, Part P " +
+                    "from manufacturer M, part P " +
                     "where M.mID = P.mID " +
                     "order by totalSales DESC;");
             ResultSet rs = stmt.executeQuery();
@@ -470,8 +470,8 @@ public class Database {
     public void showPopularPart(int num){
         System.out.println("| Part ID | Part Name | No. of Transaction |");
         try {
-            PreparedStatement stmt = conn.prepareStatement("select P.pID, P.pName, count() as NumberOfTransactions " +
-                    "from TRANSACTION T, Part P " +
+            PreparedStatement stmt = conn.prepareStatement("select P.pID, P.pName, count(T.tid) as NumberOfTransactions " +
+                    "from transaction T, part P " +
                     "where T.pid = P.pid " +
                     "order by NumberOfTransactions DESC " +
                     "Limit " + num);
