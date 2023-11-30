@@ -303,7 +303,7 @@ public class Database {
                                                             + "join manufacturer M on M.mID = P.mID "
                                                             + "join category C on C.cID = P.cID "
                                                             + "where " +  criterion + " LIKE '%" + search_word + "%' "
-                                                            + "order by P.price " + order);
+                                                            + "order by P.pPrice " + order);
             ResultSet rs = stmt.executeQuery();
             System.out.println("| ID | Name | Manufacturer | Category | Quantity | Warranty | Price |");
             while (rs.next()) {

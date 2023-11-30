@@ -46,13 +46,13 @@ public class SalesMenu implements Menu {
             return;
         }
 
-        System.out.print("Type in the Search Keyboard: ");
+        System.out.print("Type in the Search Keyword: ");
         String search_word = scanner.next();
 
         System.out.println("Choose ordering: ");
         System.out.println("1. By price, ascending order");
         System.out.println("2. By price, descending order");
-        System.out.print("Choose the search criterion:  ");
+        System.out.print("Choose the ordering: ");
         int search_order = scanner.nextInt();
         if (search_order != 1 && search_order != 2) {
             System.out.println("[Error]: Invalid input.");
