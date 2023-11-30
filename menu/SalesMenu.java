@@ -36,7 +36,30 @@ public class SalesMenu implements Menu {
     }
 
     private void searchForParts() {
+        System.out.println("Choose the search criterion: ");
+        System.out.println("1. Part Name");
+        System.out.println("2. Manufacturer Name");
+        System.out.print("Choose the search criterion: ");
+        int search_crit = scanner.nextInt();
+        if (search_crit != 1 && search_crit != 2) {
+            System.out.println("[Error]: Invalid input.");
+            return;
+        }
 
+        System.out.print("Type in the Search Keyboard: ");
+        String search_word = scanner.nextLine();
+
+        System.out.println("Choose ordering: ");
+        System.out.println("1. By price, ascending order");
+        System.out.println("2. By price, descending order");
+        System.out.print("Choose the search criterion:  ");
+        int search_order = scanner.nextInt();
+        if (search_order != 1 && search_order != 2) {
+            System.out.println("[Error]: Invalid input.");
+            return;
+        }
+
+        db.Search_for_Parts(search_crit, search_word, search_order);
     }
 
     private void sellPart() {

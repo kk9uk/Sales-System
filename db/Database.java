@@ -282,11 +282,61 @@ public class Database {
 
     // ====== SALESPERSON OPERATIONS =======
 
-    public void Search_for_Parts() {
-        // TODO
+    public void Search_for_Parts(int search_crit, String search_word, int search_order) throws SQLException{
+        try {
+            // Initialize variable
+            String criterion = "";
+            if (search_crit == 1) {
+                criterion = "P.pName";
+            } else {
+                criterion = "M.mName";
+            }
+
+            String order = "";
+            if (search_order == 1) {
+                order = "ASC";
+            } else {
+                order = "DESC";
+            }
+            
+            PreparedStatement stmt = conn.prepareStatement("SELECT P.*, M.mName, C.cName FROM part P "
+                                                            + "join manufacturer M on M.mID = P.mID "
+                                                            + "join category C on C.cID = P.cID "
+                                                            + "where " +  criterion + " LIKE '%" + search_word + "%' "
+                                                            + "order by P.price " + order);
+            ResultSet rs = stmt.executeQuery();
+            System.out.println("| ID | Name | Manufacturer | Category | Quantity | Warranty | Price |");
+            while (rs.next()) {
+                int p_id = rs.getInt(1);
+                String p_name = rs.getString(2);
+                int p_price = rs.getInt(3);
+                int p_warranty = rs.getInt(4); // ...
+                int p_quantity = rs.getInt(5);
+                String m_name = rs.getString(8);
+                String c_name = rs.getString(9);
+                System.out.println("| " 
+                                + p_id 
+                                + " | " 
+                                + p_name
+                                + " | "
+                                + m_name
+                                + " | "
+                                + c_name
+                                + " | "
+                                + p_quantity
+                                + " | "
+                                + p_warranty
+                                + " | "
+                                + p_price
+                                + " |");
+            }
+            
+        } catch (SQLException e) {
+            System.out.println("[Error]: " + e);
+        }
     }
 
-    public void Sell_a_part(int part_id, int salesperson_id) {
+    public void Sell_a_part(int part_id, int salesperson_id) throws SQLException{
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT pAvailableQuantity, pName FROM part where pID = ?");
             stmt.setInt(1, part_id);
