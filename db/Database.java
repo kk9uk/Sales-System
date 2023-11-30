@@ -419,11 +419,16 @@ public class Database {
     public void showTransactionRecord(int lower, int higher){
         System.out.println("| ID | Name | Years of Experience | Number of Transaction |");
         try {
-            PreparedStatement stmt = conn.prepareStatement("select T.tID, S.aName, S.sExperience, count(T.tID) as NumberOfTransactions \n" +
-                    "from transaction T, salesperson S " +
-                    "where T.sId = S.sID and s.Experience between "+ lower +" and " + higher +
-                    " group by T.tID, S.aName, S.sExperience " +
-                    " order by S.sID DESC;");
+            PreparedStatement stmt = conn.prepareStatement("SELECT S.sID, S.sName, S.sExperience, SUM(T.NumberOfTransactions) AS NumberOfTransactions\n" +
+                    "FROM salesperson AS S\n" +
+                    "INNER JOIN (\n" +
+                    "    SELECT T.sid, COUNT(T.TID) AS NumberOfTransactions\n" +
+                    "    FROM transaction AS T\n" +
+                    "    GROUP BY T.sid\n" +
+                    ") AS T ON S.sid = T.sid\n" +
+                    "WHERE S.sExperience BETWEEN " +lower+ " AND " + higher+"\n" +
+                    "GROUP BY S.sID, S.sName, S.sExperience\n" +
+                    "ORDER BY S.sID DESC;");
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
                 int iD = rs.getInt(1);
@@ -448,10 +453,12 @@ public class Database {
     public void showSalesValues() {
         System.out.println("| Manufacturer ID | Manufacturer Name | Total Sales Value");
         try {
-            PreparedStatement stmt = conn.prepareStatement("select M.mID, M.mName, sum(P.pPrice) as totalSales " +
-                    "from manufacturer M join part P on M.mID = P.mID " +
-                    "group by M.mID, M.mName "+
-                    "order by totalSales DESC;");
+            PreparedStatement stmt = conn.prepareStatement("SELECT M.mID, M.mName, SUM(P.pPrice) AS totalSales\n" +
+                    "FROM manufacturer M\n" +
+                    "JOIN part P ON M.mID = P.mID\n" +
+                    "JOIN transaction T ON T.pid = P.pid\n" +
+                    "GROUP BY M.mID, M.mName\n" +
+                    "ORDER BY totalSales DESC;");
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
                 int iD = rs.getInt(1);
@@ -474,11 +481,7 @@ public class Database {
     public void showPopularPart(int num){
         System.out.println("| Part ID | Part Name | No. of Transaction |");
         try {
-            PreparedStatement stmt = conn.prepareStatement("select P.pID, P.pName, count(*) as NumberOfTransactions " +
-                    "from part P join transaction T on P.pID = T.pID " +
-                    "order by NumberOfTransactions DESC " +
-                    "group by P.pID, P.pName " +
-                    "Limit " + num);
+            PreparedStatement stmt = conn.prepareStatement("select P.pID, P.pName, COUNT(T.tID) as NumberOfTransactions FROM part P join transaction T on P.pID = T.pID GROUP BY P.pID, P.pName ORDER BY NumberOFTransactions DESC LIMIT " + num);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
                 int iD = rs.getInt(1);
