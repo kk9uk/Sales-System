@@ -310,8 +310,8 @@ public class Database {
                 int p_id = rs.getInt(1);
                 String p_name = rs.getString(2);
                 int p_price = rs.getInt(3);
-                int p_warranty = rs.getInt(4); // ...
-                int p_quantity = rs.getInt(5);
+                int p_warranty = rs.getInt(6); // ...
+                int p_quantity = rs.getInt(7);
                 String m_name = rs.getString(8);
                 String c_name = rs.getString(9);
                 System.out.println("| " 
