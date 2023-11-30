@@ -415,7 +415,7 @@ public class Database {
     public void showTransactionRecord(int lower, int higher){
         System.out.println("| ID | Name | Years of Experience | Number of Transaction |");
         try {
-            PreparedStatement stmt = conn.prepareStatement("select T.tID, S.aName, S.sExperience, count(T.tID) as NumberOfTransactions\n" +
+            PreparedStatement stmt = conn.prepareStatement("select T.tID, S.aName, S.sExperience, count(T.tID) as NumberOfTransactions \n" +
                     "from transaction T, salesperson S " +
                     "where T.sId = S.sID and s.Experience between "+ lower +" and " + higher +
                     " group by T.tID, S.aName, S.sExperience " +
@@ -447,6 +447,7 @@ public class Database {
             PreparedStatement stmt = conn.prepareStatement("select M.mID, M.mName, sum(P.pPrice) as totalSales " +
                     "from manufacturer M, part P " +
                     "where M.mID = P.mID " +
+                    "group by M.mID, M.mName "+
                     "order by totalSales DESC;");
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
@@ -474,6 +475,7 @@ public class Database {
                     "from transaction T, part P " +
                     "where T.pid = P.pid " +
                     "order by NumberOfTransactions DESC " +
+                    "group by p.pid, p.pName " +
                     "Limit " + num);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
