@@ -330,7 +330,7 @@ public class Database {
                                 + p_price
                                 + " |");
             }
-            
+            System.out.println("End of Query");
         } catch (SQLException e) {
             System.out.println("[Error]: " + e);
         }
@@ -348,8 +348,12 @@ public class Database {
             }
 
             ResultSet rs = stmt.executeQuery();
-            int quantity = rs.getInt(1);
-            String part_Name = rs.getString(2);
+            int quantity = 0;
+            String part_Name = "";
+            if (rs.next()) {
+                quantity = rs.getInt(1);
+                part_Name = rs.getString(2);
+            }
 
             // Check if it is out of stock
             if (quantity == 0) {
