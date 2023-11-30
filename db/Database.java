@@ -53,7 +53,7 @@ public class Database {
                         + "sExperience INT(1) NOT NULL,"
                         + "PRIMARY KEY (sID)"
                         + ");"),
-                conn.prepareStatement("CREATE TABLE transactionrecords ("
+                conn.prepareStatement("CREATE TABLE transaction ("
                         + "tID INT(4) NOT NULL,"
                         + "partID INT(3) NOT NULL,"
                         + "salespersonID INT(2) NOT NULL,"
