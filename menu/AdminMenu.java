@@ -73,7 +73,7 @@ public class AdminMenu implements Menu {
         // TODO:
     }
     private void show_content() {
-        System.out.println("Which table would you like to show: ");
+        System.out.print("Which table would you like to show: ");
         db.ShowTableContent(scanner.next());
     }
 }

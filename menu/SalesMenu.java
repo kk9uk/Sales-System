@@ -18,8 +18,8 @@ public class SalesMenu implements Menu {
             printSalesMenu();
             int choice = scanner.nextInt();
             switch (choice) {
-                case 1: break;
-                case 2: break;
+                case 1: searchForParts(); break;
+                case 2: sellPart(); break;
                 case 3: return;
                 default: System.out.print("[Error]: Invalid operation, choose again!\n");
             }
@@ -33,5 +33,17 @@ public class SalesMenu implements Menu {
         System.out.println("2. Sell a part");
         System.out.println("3. Return to the main menu");
         System.out.print("Enter Your Choice: ");
+    }
+
+    private void searchForParts() {
+
+    }
+
+    private void sellPart() {
+        System.out.print("Enter The Part ID: ");
+        int part_id = scanner.nextInt();
+        System.out.print("Enter Salesperson ID: ");
+        int salesperson_id = scanner.nextInt();
+        db.Sell_a_part(part_id, salesperson_id);
     }
 }

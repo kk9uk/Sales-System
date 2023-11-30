@@ -226,4 +226,58 @@ public class Database {
             System.out.println("[Error]: " + e);
         }
     }
+
+
+    // ====== SALESPERSON OPERATIONS =======
+
+    public void Search_for_Parts() {
+        // TODO
+    }
+
+    public void Sell_a_part(int part_id, int salesperson_id) {
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT pAvailableQuantity, pName FROM part where pID = ?");
+            stmt.setInt(1, part_id);
+
+            // Check if exist this product
+            if (!stmt.executeQuery().next()) {
+                System.out.println("[Error]: No such product.");
+                return;
+            }
+
+            ResultSet rs = stmt.executeQuery();
+            int quantity = rs.getInt(1);
+            String part_Name = rs.getString(2);
+
+            // Check if it is out of stock
+            if (quantity == 0) {
+                System.out.println("[Error]: This part cannot be sold. (Quantity = 0)");
+                return;
+            }
+            
+            System.out.println("Product: " + part_Name + "(id: " + part_id + ") Remaining Quantity: " + quantity - 1);
+
+            // Update Quantity
+            stmt = conn.prepareStatement("UPDATE part SET pAvailableQuantity = pAvailableQuantity - 1 WHERE pID = " + part_id);
+            stmt.executeUpdate();
+
+            // Update transaction record
+            stmt = conn.prepareStatement("SELECT COUNT(*) FROM transaction");
+            rs = stmt.executeQuery();
+            int transaction_counter = 0;
+            if (rs.next()) {
+                transaction_counter = rs.getInt(1);
+            }
+
+            stmt = conn.prepareStatement("INSERT INTO transaction (tID, pID, sID, tDate) VALUES (?, ?, ?, ?)");
+            stmt.setInt(1, transaction_counter + 1);
+            stmt.setInt(2, part_id);
+            stmt.setInt(3, salesperson_id);
+            stmt.setDate(4, new java.sql.Date(System.currentTimeMilis()));
+            stmt.execute();
+
+        } catch (SQLException e) {
+            System.out.println("[Error]: " + e);
+        }
+    }
 }
