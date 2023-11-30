@@ -46,8 +46,9 @@ public class SalesMenu implements Menu {
             return;
         }
 
+        scanner.nextLine();
         System.out.print("Type in the Search Keyword: ");
-        String search_word = scanner.next();
+        String search_word = scanner.nextLine();
 
         System.out.println("Choose ordering: ");
         System.out.println("1. By price, ascending order");
