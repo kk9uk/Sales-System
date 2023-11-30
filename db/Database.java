@@ -310,7 +310,7 @@ public class Database {
                 int p_id = rs.getInt(1);
                 String p_name = rs.getString(2);
                 int p_price = rs.getInt(3);
-                int p_warranty = rs.getInt(6); // ...
+                int p_warranty = rs.getInt(6);
                 int p_quantity = rs.getInt(7);
                 String m_name = rs.getString(8);
                 String c_name = rs.getString(9);
@@ -330,7 +330,7 @@ public class Database {
                                 + p_price
                                 + " |");
             }
-            
+            Systen.out.println("End of Query");
         } catch (SQLException e) {
             System.out.println("[Error]: " + e);
         }
@@ -348,8 +348,10 @@ public class Database {
             }
 
             ResultSet rs = stmt.executeQuery();
-            int quantity = rs.getInt(1);
-            String part_Name = rs.getString(2);
+            if (rs.next()) {
+                int quantity = rs.getInt(1);
+                String part_Name = rs.getString(2);
+            }
 
             // Check if it is out of stock
             if (quantity == 0) {
