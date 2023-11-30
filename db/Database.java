@@ -388,7 +388,7 @@ public class Database {
         String order = (choice == 1) ? "asc" : "desc";
         System.out.println("| ID | Name | Mobile Phone | Years of Experience|");
         try {
-            PreparedStatement stmt = conn.prepareStatement("Select * from salesperson order by sId "+order);
+            PreparedStatement stmt = conn.prepareStatement("Select * from salesperson order by sExperience "+order);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
                 int iD = rs.getInt(1);
@@ -417,9 +417,9 @@ public class Database {
         try {
             PreparedStatement stmt = conn.prepareStatement("select T.tID, S.aName, S.sExperience, count(T.tID) as NumberOfTransactions\n" +
                     "from TRANSACTION T, Salesperson S " +
-                    "where T.sId = S.sID and s.Experience between "+ lower +" and" + higher +
-                    "group by T.tID, S.aName, S.sExperience " +
-                    "order by S.sID DESC;");
+                    "where T.sId = S.sID and s.Experience between "+ lower +" and " + higher +
+                    " group by T.tID, S.aName, S.sExperience " +
+                    " order by S.sID DESC;");
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
                 int iD = rs.getInt(1);
