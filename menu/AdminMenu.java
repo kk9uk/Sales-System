@@ -2,6 +2,8 @@ package menu;
 
 import db.Database;
 import java.util.Scanner;
+import java.util.*;
+import java.sql.*;
 
 public class AdminMenu implements Menu {
     private Database db;
@@ -18,8 +20,8 @@ public class AdminMenu implements Menu {
             printAdminMenu();
             int choice = scanner.nextInt();
             switch (choice) {
-                case 1: break;
-                case 2: break;
+                case 1: create_table(); break;
+                case 2: delete_table(); break;
                 case 3: break;
                 case 4: break;
                 case 5: return;
@@ -37,5 +39,40 @@ public class AdminMenu implements Menu {
         System.out.println("4. Show content of a table");
         System.out.println("5. Return to the main menu");
         System.out.print("Enter Your Choice: ");
+    }
+
+    private void create_table() {
+        // TODO: Waiting test bug
+        try {
+            System.out.printf("Processing...");
+            db.createAllTables();
+            System.out.println("Done! Database is initialized!\n");
+        } catch (SQLException e) {
+            if (e.toString().contains("exists")) {
+                System.out.println("[Error] Tables already created.\n");
+            } else {
+                System.out.println("[Error] Failed to create tables.\n");
+            }
+        }
+    }
+    private void delete_table() {
+        // TODO:
+        try {
+            System.out.println("Processing...");
+            db.deleteAllTables();
+            System.out.println("Done! Database is removed!\n");
+        } catch (SQLException e) {
+            if (e.toString().contains("Unknown")) {
+                System.out.println("[Error] Tables do not exist.\n");
+            } else {
+                System.out.println("[Error] Failed to delete tables.\n");
+            }
+        }
+    }
+    private void load_datafile() {
+        // TODO:
+    }
+    private void show_content() {
+        // TODO:
     }
 }
