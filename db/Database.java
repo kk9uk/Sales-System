@@ -102,7 +102,7 @@ public class Database {
         System.out.println("| c_id | c_Name |");
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT cID, cName FROM " + tName);
-            Result rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 int c_id = rs.getInt(1);
                 String c_name = rs.getString(2);
@@ -117,7 +117,7 @@ public class Database {
         System.out.println("| m_id | m_Name | m_Address | m_PhoneNumber |");
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT mID, mName, mAddress, mPhoneNumber FROM " + tName);
-            Result rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 int m_id = rs.getInt(1);
                 String m_Name = rs.getString(2);
@@ -142,7 +142,7 @@ public class Database {
         System.out.println("| p_id | p_Name | p_Price | m_id | c_id | p_WarrantyPeriod | p_AvailableQuantity |");
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT pID, pName, pPrice, mID, cID, pWarrantyPeriod, pAvailableQuantity FROM " + tName);
-            Result rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 int p_id = rs.getInt(1);
                 String p_Name = rs.getString(2);
@@ -176,7 +176,7 @@ public class Database {
         System.out.println("| s_id | s_Name | s_Address | s_PhoneNumber | s_Experience |");
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT sID, sName, sAddress, sPhoneNumber, sExperience FROM " + tName);
-            Result rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 int s_id = rs.getInt(1);
                 String s_Name = rs.getString(2);
@@ -204,7 +204,7 @@ public class Database {
         System.out.println("| t_id | p_id | s_id | t_Date |");
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT tID, pID, sID, tDate FROM " + tName);
-            Result rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 int t_id = rs.getInt(1);
                 int p_id = rs.getInt(2);
