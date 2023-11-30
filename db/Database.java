@@ -348,9 +348,11 @@ public class Database {
             }
 
             ResultSet rs = stmt.executeQuery();
+            int quantity = 0;
+            String part_Name = "";
             if (rs.next()) {
-                int quantity = rs.getInt(1);
-                String part_Name = rs.getString(2);
+                quantity = rs.getInt(1);
+                part_Name = rs.getString(2);
             }
 
             // Check if it is out of stock
