@@ -46,7 +46,7 @@ public class Database {
                         + "pPrice INT(5) NOT NULL,"
                         + "mID INT(2) NOT NULL,"
                         + "cID INT(1) NOT NULL,"
-                        + "pWarranty INT(2) NOT NULL,"
+                        + "pWarrantyPeriod INT(2) NOT NULL,"
                         + "pAvailableQuantity INT(2) NOT NULL,"
                         + "PRIMARY KEY (pID),"
                         + "FOREIGN KEY (mID) REFERENCES manufacturer(mID),"
