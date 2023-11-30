@@ -1,6 +1,7 @@
 package db;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
@@ -255,7 +256,7 @@ public class Database {
                 return;
             }
             
-            System.out.println("Product: " + part_Name + "(id: " + part_id + ") Remaining Quantity: " + quantity - 1);
+            System.out.println("Product: " + part_Name + "(id: " + part_id + ") Remaining Quantity: " + (quantity - 1));
 
             // Update Quantity
             stmt = conn.prepareStatement("UPDATE part SET pAvailableQuantity = pAvailableQuantity - 1 WHERE pID = " + part_id);
@@ -273,7 +274,7 @@ public class Database {
             stmt.setInt(1, transaction_counter + 1);
             stmt.setInt(2, part_id);
             stmt.setInt(3, salesperson_id);
-            stmt.setDate(4, new java.sql.Date(System.currentTimeMilis()));
+            stmt.setDate(4, new Date(System.currentTimeMillis()));
             stmt.execute();
 
         } catch (SQLException e) {
