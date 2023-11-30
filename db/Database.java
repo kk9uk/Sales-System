@@ -77,7 +77,7 @@ public class Database {
         }
     }
 
-    public void ShowTableContent(String Table_Name) throws SQLException {
+    public void ShowTableContent(String Table_Name) {
         System.out.println("Content of table" + Table_Name + " : ");
         switch (Table_Name) {
             case "category":
