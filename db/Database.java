@@ -449,8 +449,7 @@ public class Database {
         System.out.println("| Manufacturer ID | Manufacturer Name | Total Sales Value");
         try {
             PreparedStatement stmt = conn.prepareStatement("select M.mID, M.mName, sum(P.pPrice) as totalSales " +
-                    "from manufacturer M, part P " +
-                    "where M.mID = P.mID " +
+                    "from manufacturer M join part P on M.mID = P.mID " +
                     "group by M.mID, M.mName "+
                     "order by totalSales DESC;");
             ResultSet rs = stmt.executeQuery();
@@ -476,7 +475,7 @@ public class Database {
         System.out.println("| Part ID | Part Name | No. of Transaction |");
         try {
             PreparedStatement stmt = conn.prepareStatement("select P.pID, P.pName, count(*) as NumberOfTransactions " +
-                    "from part P join transaction T on P.pID = T.pID" +
+                    "from part P join transaction T on P.pID = T.pID " +
                     "order by NumberOfTransactions DESC " +
                     "group by P.pID, P.pName " +
                     "Limit " + num);
