@@ -42,7 +42,6 @@ public class AdminMenu implements Menu {
     }
 
     private void create_table() {
-        // TODO: Waiting test bug
         try {
             System.out.printf("Processing...");
             db.createAllTables();
@@ -56,7 +55,6 @@ public class AdminMenu implements Menu {
         }
     }
     private void delete_table() {
-        // TODO:
         try {
             System.out.println("Processing...");
             db.deleteAllTables();

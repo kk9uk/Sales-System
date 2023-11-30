@@ -382,4 +382,118 @@ public class Database {
             System.out.println("[Error]: " + e);
         }
     }
+
+    // ====== MANAGER OPERATIONS =======
+    public void showSales(int choice) {
+        String order = (choice == 1) ? "asc" : "desc";
+        System.out.println("| ID | Name | Mobile Phone | Years of Experience|");
+        try {
+            PreparedStatement stmt = conn.prepareStatement("Select * from salesperson order by sId "+order);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                int iD = rs.getInt(1);
+                String name = rs.getString(2);
+                String address = rs.getString(3);
+                int mobilePhone = rs.getInt(4);
+                int exp = rs.getInt(5);
+                System.out.println("| "
+                        + iD
+                        + " | "
+                        + name
+                        + " | "
+                        + mobilePhone
+                        + " | "
+                        + exp
+                        + " | ");
+            }
+        }
+        catch (SQLException e) {
+            System.out.println("[Error]: " + e);
+        }
+
+    }
+    public void showTransactionRecord(int lower, int higher){
+        System.out.println("| ID | Name | Years of Experience | Number of Transaction |");
+        try {
+            PreparedStatement stmt = conn.prepareStatement("select T.tID, S.aName, S.sExperience, count(T.tID) as NumberOfTransactions\n" +
+                    "from TRANSACTION T, Salesperson S " +
+                    "where T.sId = S.sID and s.Experience between "+ lower +" and" + higher +
+                    "group by T.tID, S.aName, S.sExperience " +
+                    "order by S.sID DESC;");
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                int iD = rs.getInt(1);
+                String name = rs.getString(2);
+                int yearOfExperience = rs.getInt(3);
+                int numberOfTransaction = rs.getInt(4);
+                System.out.println("| "
+                        + iD
+                        + " | "
+                        + name
+                        + " | "
+                        + yearOfExperience
+                        + " | "
+                        + numberOfTransaction
+                        + " | ");
+            }
+        }
+        catch (SQLException e) {
+            System.out.println("[Error]: " + e);
+        }
+    }
+    public void showSalesValues() {
+        System.out.println("| Manufacturer ID | Manufacturer Name | Total Sales Value");
+        try {
+            PreparedStatement stmt = conn.prepareStatement("select M.mID, M.mName, sum(P.pPrice) as totalSales " +
+                    "from Manufacturer M, Part P " +
+                    "where M.mID = P.mID" +
+                    "order by totalSales DESC;");
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                int iD = rs.getInt(1);
+                String name = rs.getString(2);
+                int price  = rs.getInt(3);
+                System.out.println("| "
+                        + iD
+                        + " | "
+                        + name
+                        + " | "
+                        + price
+                        + " | ");
+            }
+        }
+        catch (SQLException e) {
+            System.out.println("[Error]: " + e);
+        }
+
+    }
+    public void showPopularPart(int num){
+        System.out.println("| Part ID | Part Name | No. of Transaction |");
+        try {
+            PreparedStatement stmt = conn.prepareStatement("select P.pID, P.pName, count() as NumberOfTransactions" +
+                    "from TRANSACTION T, Part P" +
+                    "where T.pid = P.pid" +
+                    "order by NumberOfTransactions DESC" +
+                    "Limit " + num);
+            ResultSet rs = stmt.executeQuery();
+            while(rs.next()) {
+                int iD = rs.getInt(1);
+                String name = rs.getString(2);
+                int count  = rs.getInt(3);
+                System.out.println("| "
+                        + iD
+                        + " | "
+                        + name
+                        + " | "
+                        + count
+                        + " | ");
+            }
+        }
+        catch (SQLException e) {
+            System.out.println("[Error]: " + e);
+        }
+
+
+    }
+
 }
