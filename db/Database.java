@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 
 public class Database {
     private static final String dbAddress = "jdbc:mysql://projgw.cse.cuhk.edu.hk:2633/db1?autoReconnect=true&useSSL=false";
@@ -208,7 +209,9 @@ public class Database {
                 int t_id = rs.getInt(1);
                 int p_id = rs.getInt(2);
                 int s_id = rs.getInt(3);
-                
+                Date t_date = rs.getDate(4);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String t_dateStr = dateFormat.format(t_date);
                 System.out.println("| " 
                                 + t_id 
                                 + " | " 
@@ -216,7 +219,7 @@ public class Database {
                                 + " | "
                                 + s_id
                                 + " | "
-
+                                + t_dateStr
                                 + " |");
             }
         } catch (SQLException e) {
