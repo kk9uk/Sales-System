@@ -3,11 +3,11 @@ package menu;
 import db.Database;
 import java.util.Scanner;
 
-public class AdminMenu implements Menu {
+public class ManagerMenu implements Menu {
     private Database db;
     private Scanner scanner;
 
-    public AdminMenu(Database db, Scanner scanner) {
+    public ManagerMenu(Database db, Scanner scanner) {
         this.db = db;
         this.scanner = scanner;
     }
@@ -15,7 +15,7 @@ public class AdminMenu implements Menu {
     public void start() {
         while (true) {
             System.out.println();
-            printAdminMenu();
+            printManagerMenu();
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1: break;
@@ -28,13 +28,13 @@ public class AdminMenu implements Menu {
         }
     }
 
-    private static void printAdminMenu() {
-        System.out.println("-----Operations for administrator menu-----");
+    private static void printManagerMenu() {
+        System.out.println("-----Operations for manager menu-----");
         System.out.println("What kinds of operation would you like to perform?");
-        System.out.println("1. Create all tables");
-        System.out.println("2. Delete all tables");
-        System.out.println("3. Load from datafile");
-        System.out.println("4. Show content of a table");
+        System.out.println("1. List all salespersons");
+        System.out.println("2. Count the no. of sales record of each salesperson under a specific range on years of experience");
+        System.out.println("3. Show the total sales value of each manufacturer");
+        System.out.println("4. Show the N most popular part");
         System.out.println("5. Return to the main menu");
         System.out.print("Enter Your Choice: ");
     }

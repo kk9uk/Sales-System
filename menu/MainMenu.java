@@ -14,15 +14,16 @@ public class MainMenu implements Menu {
 
     public void start() {
         while (true) {
-            Menu menu = null;
+            System.out.println();
             printMainMenu();
+            Menu menu = null;
             int choice = scanner.nextInt();
             switch (choice) {
                 case 1: menu = new AdminMenu(db, scanner); break;
                 case 2: menu = new SalesMenu(db, scanner); break;
                 case 3: menu = new ManagerMenu(db, scanner); break;
-                case 4: return;
-                default: System.out.println("[Error]: Invalid operation, choose again!\n");
+                case 4: System.out.print("Bye."); return;
+                default: System.out.print("[Error]: Invalid operation, choose again!\n");
             }
             if (menu != null) menu.start();
         }
@@ -35,6 +36,6 @@ public class MainMenu implements Menu {
         System.out.println("2. Operations for salesperson");
         System.out.println("3. Operations for manager");
         System.out.println("4. Exit this program");
-        System.out.println("Enter Your Choice: ");
+        System.out.print("Enter Your Choice: ");
     }
 }
