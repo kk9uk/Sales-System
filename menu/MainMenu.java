@@ -22,7 +22,7 @@ public class MainMenu implements Menu {
                 case 1: menu = new AdminMenu(db, scanner); break;
                 case 2: menu = new SalesMenu(db, scanner); break;
                 case 3: menu = new ManagerMenu(db, scanner); break;
-                case 4: System.out.print("Bye."); return;
+                case 4: System.out.println("Bye."); return;
                 default: System.out.print("[Error]: Invalid operation, choose again!\n");
             }
             if (menu != null) menu.start();
