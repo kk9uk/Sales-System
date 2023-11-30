@@ -282,7 +282,7 @@ public class Database {
 
     // ====== SALESPERSON OPERATIONS =======
 
-    public void Search_for_Parts(int search_crit, String search_word, int search_order) throws SQLException{
+    public void Search_for_Parts(int search_crit, String search_word, int search_order) {
         try {
             // Initialize variable
             String criterion = "";
@@ -336,7 +336,7 @@ public class Database {
         }
     }
 
-    public void Sell_a_part(int part_id, int salesperson_id) throws SQLException{
+    public void Sell_a_part(int part_id, int salesperson_id) {
         try {
             PreparedStatement stmt = conn.prepareStatement("SELECT pAvailableQuantity, pName FROM part where pID = ?");
             stmt.setInt(1, part_id);
