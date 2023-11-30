@@ -330,7 +330,7 @@ public class Database {
                                 + p_price
                                 + " |");
             }
-            Systen.out.println("End of Query");
+            System.out.println("End of Query");
         } catch (SQLException e) {
             System.out.println("[Error]: " + e);
         }
