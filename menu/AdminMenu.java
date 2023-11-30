@@ -23,7 +23,7 @@ public class AdminMenu implements Menu {
                 case 1: create_table(); break;
                 case 2: delete_table(); break;
                 case 3: break;
-                case 4: break;
+                case 4: show_content(); break;
                 case 5: return;
                 default: System.out.print("[Error]: Invalid operation, choose again!\n");
             }
@@ -73,6 +73,7 @@ public class AdminMenu implements Menu {
         // TODO:
     }
     private void show_content() {
-        // TODO:
+        System.out.println("Which table would you like to show: ");
+        db.ShowTableContent(scanner.next());
     }
 }
