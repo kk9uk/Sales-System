@@ -13,6 +13,10 @@ public class PartDatafile implements Datafile {
     private int pWarrantyPeriod;
     private int pAvailableQuantity;
 
+    public PartDatafile() {
+
+    }
+
     public void parseLine(String line) {
         String[] token = line.split("\t");
         this.pID = Integer.parseInt(token[0]);
@@ -25,7 +29,7 @@ public class PartDatafile implements Datafile {
     }
 
     public void saveLineToDatabase(Connection conn) {
-        Part part = new Part(this.pID, this.pName, this.pPrice, this.mID, this.cID, this.pWarrantyPeriod, this.pAvailableQuantity);
+        Part part = new Part(pID, pName, pPrice, mID, cID, pWarrantyPeriod, pAvailableQuantity);
         part.saveToDatabase(conn);
     }
 }

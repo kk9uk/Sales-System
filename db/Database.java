@@ -1,5 +1,7 @@
 package db;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -7,6 +9,8 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
+
+import datafile.*;
 
 public class Database {
     private static final String dbAddress = "jdbc:mysql://projgw.cse.cuhk.edu.hk:2633/db1?autoReconnect=true&useSSL=false";
@@ -74,6 +78,53 @@ public class Database {
         for (int i = 0; i < tableNames.length; i++) {
             PreparedStatement stmt = conn.prepareStatement("DROP TABLE IF EXISTS" + tableNames[i]);
             stmt.execute();
+        }
+    }
+
+    public void loadDataFromFolder(String path) throws Exception {
+        CategoryDatafile datafile1 = new CategoryDatafile();
+        BufferedReader reader1 = new BufferedReader(new FileReader(path + "/category.txt"));
+        String line1 = reader1.readLine();
+        while (line1 != null) {
+            datafile1.parseLine(line1);
+            datafile1.saveLineToDatabase(conn);
+            line1 = reader1.readLine();
+        }
+
+        ManufacturerDatafile datafile2 = new ManufacturerDatafile();
+        BufferedReader reader2 = new BufferedReader(new FileReader(path + "/manufacturer.txt"));
+        String line2 = reader2.readLine();
+        while (line2 != null) {
+            datafile2.parseLine(line2);
+            datafile2.saveLineToDatabase(conn);
+            line2 = reader2.readLine();
+        }
+
+        PartDatafile datafile3 = new PartDatafile();
+        BufferedReader reader3 = new BufferedReader(new FileReader(path + "/part.txt"));
+        String line3 = reader3.readLine();
+        while (line3 != null) {
+            datafile3.parseLine(line3);
+            datafile3.saveLineToDatabase(conn);
+            line3 = reader3.readLine();
+        }
+
+        SalespersonDatafile datafile4 = new SalespersonDatafile();
+        BufferedReader reader4 = new BufferedReader(new FileReader(path + "/salesperson.txt"));
+        String line4 = reader4.readLine();
+        while (line4 != null) {
+            datafile4.parseLine(line4);
+            datafile4.saveLineToDatabase(conn);
+            line4 = reader4.readLine();
+        }
+
+        TransactionDatafile datafile5 = new TransactionDatafile();
+        BufferedReader reader5 = new BufferedReader(new FileReader(path + "/transaction.txt"));
+        String line5 = reader5.readLine();
+        while (line5 != null) {
+            datafile5.parseLine(line5);
+            datafile5.saveLineToDatabase(conn);
+            line5 = reader5.readLine();
         }
     }
 

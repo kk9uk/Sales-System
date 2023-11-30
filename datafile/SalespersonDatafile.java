@@ -11,6 +11,10 @@ public class SalespersonDatafile implements Datafile {
     private int sPhoneNumber;
     private int sExperience;
 
+    public SalespersonDatafile() {
+
+    }
+
     public void parseLine(String line) {
         String[] token = line.split("\t");
         this.sID = Integer.parseInt(token[0]);
@@ -21,7 +25,7 @@ public class SalespersonDatafile implements Datafile {
     }
 
     public void saveLineToDatabase(Connection conn) {
-        Salesperson salesperson = new Salesperson(this.sID, this.sName, this.sAddress, this.sPhoneNumber, this.sExperience);
+        Salesperson salesperson = new Salesperson(sID, sName, sAddress, sPhoneNumber, sExperience);
         salesperson.saveToDatabase(conn);
     }
 }

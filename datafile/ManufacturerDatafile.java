@@ -10,6 +10,10 @@ public class ManufacturerDatafile implements Datafile {
     private String mAddress;
     private int mPhoneNumber;
 
+    public ManufacturerDatafile() {
+
+    }
+
     public void parseLine(String line) {
         String[] token = line.split("\t");
         this.mID = Integer.parseInt(token[0]);
@@ -19,7 +23,7 @@ public class ManufacturerDatafile implements Datafile {
     }
 
     public void saveLineToDatabase(Connection conn) {
-        Manufacturer manufacturer = new Manufacturer(this.mID, this.mName, this.mAddress, this.mPhoneNumber);
+        Manufacturer manufacturer = new Manufacturer(mID, mName, mAddress, mPhoneNumber);
         manufacturer.saveToDatabase(conn);
     }
 }

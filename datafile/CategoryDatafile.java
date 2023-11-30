@@ -8,6 +8,10 @@ public class CategoryDatafile implements Datafile {
     private int cID;
     private String cName;
 
+    public CategoryDatafile() {
+
+    }
+
     public void parseLine(String line) {
         String[] token = line.split("\t");
         this.cID = Integer.parseInt(token[0]);
@@ -15,7 +19,7 @@ public class CategoryDatafile implements Datafile {
     }
 
     public void saveLineToDatabase(Connection conn) {
-        Category category = new Category(this.cID, this.cName);
+        Category category = new Category(cID, cName);
         category.saveToDatabase(conn);
     }
 }

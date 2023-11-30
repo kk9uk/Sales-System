@@ -22,7 +22,7 @@ public class AdminMenu implements Menu {
             switch (choice) {
                 case 1: create_table(); break;
                 case 2: delete_table(); break;
-                case 3: break;
+                case 3: load_datafile(); break;
                 case 4: show_content(); break;
                 case 5: return;
                 default: System.out.print("[Error]: Invalid operation, choose again!\n");
@@ -70,7 +70,16 @@ public class AdminMenu implements Menu {
         }
     }
     private void load_datafile() {
-        // TODO:
+        System.out.print("Type in the Source Data Folder Path: ");
+        String path = scanner.next();
+        try {
+            System.out.print("Processing...");
+            db.loadDataFromFolder(path);
+            System.out.println("Done! Data is inputted to the database!\n");
+        }
+        catch (Exception e) {
+            System.out.println("[Error]: Failed to load data from folder.\n");
+        }
     }
     private void show_content() {
         System.out.print("Which table would you like to show: ");

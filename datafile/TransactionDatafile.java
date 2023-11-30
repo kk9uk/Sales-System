@@ -11,6 +11,10 @@ public class TransactionDatafile implements Datafile {
     private int sID;
     private Calendar tDate;
 
+    public TransactionDatafile() {
+
+    }
+
     public void parseLine(String line) {
         String[] token = line.split("\t");
         this.tID = Integer.parseInt(token[0]);
@@ -20,7 +24,7 @@ public class TransactionDatafile implements Datafile {
     }
 
     public void saveLineToDatabase(Connection conn) {
-        Transaction transaction = new Transaction(this.tID, this.pID, this.sID, this.tDate);
+        Transaction transaction = new Transaction(tID, pID, sID, tDate);
         transaction.saveToDatabase(conn);
     }
 
