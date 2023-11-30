@@ -9,7 +9,7 @@ public class Database {
     private static final String dbAddress = "jdbc:mysql://projgw.cse.cuhk.edu.hk:2633/db1?autoReconnect=true&useSSL=false";
     private static final String dbUsername = "Group1";
     private static final String dbPassword = "CSCI3170";
-    final String[] tableNames = {"category", "manufacturer", "part", "salesperson", "transaction"};
+    private static final String[] tableNames = {"category", "manufacturer", "part", "salesperson", "transaction"};
 
     private Connection conn = null;
     public void connect() throws ClassNotFoundException, SQLException {
