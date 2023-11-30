@@ -310,7 +310,7 @@ public class Database {
                 int p_id = rs.getInt(1);
                 String p_name = rs.getString(2);
                 int p_price = rs.getInt(3);
-                int p_warranty = rs.getInt(6);
+                int p_warranty = rs.getInt(6); // ...
                 int p_quantity = rs.getInt(7);
                 String m_name = rs.getString(8);
                 String c_name = rs.getString(9);
@@ -330,7 +330,7 @@ public class Database {
                                 + p_price
                                 + " |");
             }
-            Systen.out.println("End of Query");
+            
         } catch (SQLException e) {
             System.out.println("[Error]: " + e);
         }
@@ -348,12 +348,8 @@ public class Database {
             }
 
             ResultSet rs = stmt.executeQuery();
-            int quantity = 0;
-            String part_Name = "";
-            if (rs.next()) {
-                quantity = rs.getInt(1);
-                part_Name = rs.getString(2);
-            }
+            int quantity = rs.getInt(1);
+            String part_Name = rs.getString(2);
 
             // Check if it is out of stock
             if (quantity == 0) {
@@ -420,7 +416,7 @@ public class Database {
         System.out.println("| ID | Name | Years of Experience | Number of Transaction |");
         try {
             PreparedStatement stmt = conn.prepareStatement("select T.tID, S.aName, S.sExperience, count(T.tID) as NumberOfTransactions\n" +
-                    "from TRANSACTION T, Salesperson S " +
+                    "from transaction T, Salesperson S " +
                     "where T.sId = S.sID and s.Experience between "+ lower +" and " + higher +
                     " group by T.tID, S.aName, S.sExperience " +
                     " order by S.sID DESC;");
@@ -450,7 +446,7 @@ public class Database {
         try {
             PreparedStatement stmt = conn.prepareStatement("select M.mID, M.mName, sum(P.pPrice) as totalSales " +
                     "from Manufacturer M, Part P " +
-                    "where M.mID = P.mID" +
+                    "where M.mID = P.mID " +
                     "order by totalSales DESC;");
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
@@ -474,10 +470,10 @@ public class Database {
     public void showPopularPart(int num){
         System.out.println("| Part ID | Part Name | No. of Transaction |");
         try {
-            PreparedStatement stmt = conn.prepareStatement("select P.pID, P.pName, count() as NumberOfTransactions" +
-                    "from TRANSACTION T, Part P" +
-                    "where T.pid = P.pid" +
-                    "order by NumberOfTransactions DESC" +
+            PreparedStatement stmt = conn.prepareStatement("select P.pID, P.pName, count() as NumberOfTransactions " +
+                    "from TRANSACTION T, Part P " +
+                    "where T.pid = P.pid " +
+                    "order by NumberOfTransactions DESC " +
                     "Limit " + num);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
