@@ -310,7 +310,7 @@ public class Database {
                 int p_id = rs.getInt(1);
                 String p_name = rs.getString(2);
                 int p_price = rs.getInt(3);
-                int p_warranty = rs.getInt(6); // ...
+                int p_warranty = rs.getInt(6);
                 int p_quantity = rs.getInt(7);
                 String m_name = rs.getString(8);
                 String c_name = rs.getString(9);
@@ -475,11 +475,10 @@ public class Database {
     public void showPopularPart(int num){
         System.out.println("| Part ID | Part Name | No. of Transaction |");
         try {
-            PreparedStatement stmt = conn.prepareStatement("select P.pID, P.pName, count(T.tid) as NumberOfTransactions " +
-                    "from transaction T, part P " +
-                    "where T.pid = P.pid " +
+            PreparedStatement stmt = conn.prepareStatement("select P.pID, P.pName, count(*) as NumberOfTransactions " +
+                    "from part P join transaction T on P.pID = T.pID" +
                     "order by NumberOfTransactions DESC " +
-                    "group by p.pid, p.pName " +
+                    "group by P.pID, P.pName " +
                     "Limit " + num);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
