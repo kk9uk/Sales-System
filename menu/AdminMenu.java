@@ -1,9 +1,9 @@
 package menu;
 
 import db.Database;
+
+import java.sql.SQLException;
 import java.util.Scanner;
-import java.util.*;
-import java.sql.*;
 
 public class AdminMenu implements Menu {
     private Database db;
